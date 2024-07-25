@@ -5,6 +5,7 @@ import HomePage from "./homePage";
 
 export default async function Page() {
   // const usage: number = (await getUsage()) as number;
+  const usage: number = 1;
   const user = (await getCurrentUser()) as UserInfo;
 
   // 获取用户当日剩余次数
@@ -39,7 +40,7 @@ export default async function Page() {
 
   return (
     <HomePage
-      // usage={usage}
+      usage={usage}
       user={user}
       remaining={remaining}
       boostPackRemaining={boostPackRemaining}
