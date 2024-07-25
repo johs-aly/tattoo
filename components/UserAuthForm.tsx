@@ -31,7 +31,7 @@ export function UserAuthForm({ className, user, ...props }: UserAuthFormProps) {
       setIsGoogleLoading(true);
     }
     signIn(platform, {
-      callbackUrl: `${window.location.origin}/api/auth/callback/google`,
+      callbackUrl: `https://tattoo-9ehw-i8p1i9kvs-smithjoh7s-projects.vercel.app/api/auth/callback/google`,
     });
   };
 
