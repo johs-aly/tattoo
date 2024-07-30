@@ -1,7 +1,7 @@
 import { SiteConfig } from "@/types/siteConfig"
 
 const baseSiteConfig = {
-  name: "Smart Excel",
+  name: "tattoo generator",
   description:
     "tattoo generator",
   url: "https://smartexcel.cc",

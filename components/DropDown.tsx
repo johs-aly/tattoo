@@ -1,77 +1,120 @@
 import { Menu, Transition } from "@headlessui/react";
 import {
-  CheckIcon,
-  ChevronDownIcon,
-  ChevronUpIcon,
+    CheckIcon,
+    ChevronDownIcon,
+    ChevronUpIcon,
 } from "@heroicons/react/20/solid";
 import { Fragment } from "react";
 
 function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(" ");
+    return classes.filter(Boolean).join(" ");
 }
 
-export type LanguageType = "中文" | "English";
+export type StyleType =
+    | "Neo-Traditional"
+    | "Minimalist"
+    | "Blackwork"
+    | "Black and Grey"
+    | "Realism"
+    | "Sketch"
+    | "Traditional"
+    | "Dotwork"
+    | "Japanese"
+    | "New School"
+    | "Geometric"
+    | "Stencil"
+    | "Surrealism"
+    | "Tribal"
+    | "Watercolor"
+    | "Anime"
+    | "Cyber Sigilism"
+    | "Trash Polka"
+    | "Abstract"
+    | "3D"
+    | "Portrait";
 
 interface DropDownProps {
-  language: LanguageType;
-  setLanguage: (language: LanguageType) => void;
+    style: StyleType;
+    setStyle: (style: StyleType) => void;
 }
 
-let languages: LanguageType[] = ["中文", "English"];
+const styles: StyleType[] = [
+    "Neo-Traditional",
+    "Minimalist",
+    "Blackwork",
+    "Black and Grey",
+    "Realism",
+    "Sketch",
+    "Traditional",
+    "Dotwork",
+    "Japanese",
+    "New School",
+    "Geometric",
+    "Stencil",
+    "Surrealism",
+    "Tribal",
+    "Watercolor",
+    "Anime",
+    "Cyber Sigilism",
+    "Trash Polka",
+    "Abstract",
+    "3D",
+    "Portrait",
+];
 
-export default function DropDown({ language, setLanguage }: DropDownProps) {
-  return (
-    <Menu as="div" className="relative block text-left w-full">
-      <div>
-        <Menu.Button className="inline-flex w-full justify-between items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-black">
-          {language}
-          <ChevronUpIcon
-            className="-mr-1 ml-2 h-5 w-5 ui-open:hidden"
-            aria-hidden="true"
-          />
-          <ChevronDownIcon
-            className="-mr-1 ml-2 h-5 w-5 hidden ui-open:block"
-            aria-hidden="true"
-          />
-        </Menu.Button>
-      </div>
+export default function DropDown({ style, setStyle }: DropDownProps) {
+    return (
+        <Menu as="div" className="relative block text-left w-full">
+            <div>
+                <Menu.Button className="inline-flex w-full justify-between items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-black">
+                    {style}
+                    <ChevronUpIcon
+                        className="-mr-1 ml-2 h-5 w-5 ui-open:hidden"
+                        aria-hidden="true"
+                    />
+                    <ChevronDownIcon
+                        className="-mr-1 ml-2 h-5 w-5 hidden ui-open:block"
+                        aria-hidden="true"
+                    />
+                </Menu.Button>
+            </div>
 
-      <Transition
-        as={Fragment}
-        enter="transition ease-out duration-100"
-        enterFrom="transform opacity-0 scale-95"
-        enterTo="transform opacity-100 scale-100"
-        leave="transition ease-in duration-75"
-        leaveFrom="transform opacity-100 scale-100"
-        leaveTo="transform opacity-0 scale-95"
-      >
-        <Menu.Items
-          className="absolute left-0 z-10 mt-2 w-full origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
-          key={language}
-        >
-          <div className="">
-            {languages.map((languageItem) => (
-              <Menu.Item key={languageItem}>
-                {({ active }) => (
-                  <button
-                    onClick={() => setLanguage(languageItem)}
-                    className={classNames(
-                      active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                      language === languageItem ? "bg-gray-200" : "",
-                      "px-4 py-2 text-sm w-full text-left flex items-center space-x-2 justify-between"
-                    )}
-                  >
-                    <span>{languageItem}</span>
-                    {language === languageItem ? (
-                      <CheckIcon className="w-4 h-4 text-bold" />
-                    ) : null}
-                  </button>
-                )}
-              </Menu.Item>
-            ))}
-          </div>
-        </Menu.Items>
-      </Transition>
-    </Menu>
-  );
+            <Transition
+                as={Fragment}
+                enter="transition ease-out duration-100"
+                enterFrom="transform opacity-0 scale-95"
+                enterTo="transform opacity-100 scale-100"
+                leave="transition ease-in duration-75"
+                leaveFrom="transform opacity-100 scale-100"
+                leaveTo="transform opacity-0 scale-95"
+            >
+                <Menu.Items
+                    className="absolute left-0 z-10 mt-2 w-full origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                    key={style}
+                >
+                    <div className="">
+                        {styles.map((styleItem) => (
+                            <Menu.Item key={styleItem}>
+                                {({ active }) => (
+                                    <button
+                                        onClick={() => setStyle(styleItem)}
+                                        className={classNames(
+                                            active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                                            style === styleItem ? "bg-gray-200" : "",
+                                            "px-4 py-2 text-sm w-full text-left flex items-center space-x-2 justify-between"
+                                        )}
+                                    >
+                                        <span>{styleItem}</span>
+                                        {style === styleItem ? (
+                                            <CheckIcon className="w-4 h-4 text-bold" />
+                                        ) : null}
+                                    </button>
+                                )}
+                            </Menu.Item>
+                        ))}
+                    </div>
+                </Menu.Items>
+            </Transition>
+        </Menu>
+    );
 }

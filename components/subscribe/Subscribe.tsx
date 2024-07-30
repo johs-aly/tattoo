@@ -18,7 +18,7 @@ export const subscribeInfo: SubscribeInfo = {
     expireType: "day",
     possess: [
       `${
-        process.env.NEXT_PUBLIC_COMMON_USER_DAILY_LIMIT_STR || "10"
+        process.env.NEXT_PUBLIC_COMMON_USER_DAILY_LIMIT_STR || "3"
       } free credits per day`,
       "Optional credits purchase",
     ],
@@ -27,10 +27,10 @@ export const subscribeInfo: SubscribeInfo = {
     isPopular: true,
     title: "Premium",
     description: "50x more credits than Free version",
-    amount: 4.99,
+    amount: 9.99,
     expireType: "month",
     possess: [
-      "Up to 500 credits per day",
+      "Up to 500 credits",
       "Optional credits purchase",
       "Early access to new features",
     ],
@@ -108,35 +108,31 @@ export default function Subscribe({ user }: { user: UserInfo | null }) {
   };
 
   return (
-    <div>
       <div>
-        <h1 className="text-4xl font-bold mb-8 text-zinc-800">UPGRADE</h1>
-      </div>
-      <section className="w-full py-0 flex items-center justify-center">
-        <div className="container px-4 md:px-6">
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-8">
-            <SubscribeCard
-              info={subscribeInfo.free}
-              clickButton={getStartFreeVersion}
-            />
-            <SubscribeCard
-              id="subscription-card"
-              info={subscribeInfo.membership}
-              clickButton={subscribe}
-            />
-            <SubscribeCard
-              id="bootsPack-card"
-              info={subscribeInfo.boostPack}
-              clickButton={purchase}
-            />
-          </div>
+        <div>
+          <h1 className="text-4xl font-bold mb-8 text-zinc-800">UPGRADE</h1>
         </div>
-      </section>
-      {/* <Toaster
+        <section className="w-full py-0 flex items-center justify-center">
+          <div className="container px-4 md:px-6">
+            <div
+                className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 justify-center"> {/* Added justify-center for centering */}
+              <SubscribeCard
+                  info={subscribeInfo.free}
+                  clickButton={getStartFreeVersion}
+              />
+              <SubscribeCard
+                  id="subscription-card"
+                  info={subscribeInfo.membership}
+                  clickButton={subscribe}
+              />
+            </div>
+          </div>
+        </section>
+        {/* <Toaster
         position="top-center"
         reverseOrder={false}
         toastOptions={{ duration: 2000 }}
       /> */}
-    </div>
+      </div>
   );
 }
