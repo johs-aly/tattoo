@@ -22,7 +22,7 @@ interface HomePageProps {
     boostPackExpire: number;
 }
 
-export default function HomePage({
+export default function  HomePage({
                                      usage,
                                      user,
                                      remaining,
@@ -83,7 +83,9 @@ export default function HomePage({
         // }
 
         // Create prompt with selected style
-        const styledPrompt = `Generate a ${style} style tattoo with the following description: ${content}`;
+        const styledPrompt = `Generate a tattoo design in the ${style} style. 
+        This design is intended for a tattoo studio to use for a custom tattoo. 
+        With the following description: ${content}. Please generate only the tattoo design, without any additional content.`;
 
 
         try {
@@ -132,11 +134,46 @@ export default function HomePage({
 
     return (
         <>
-            <h1 className="sm:text-6xl text-4xl max-w-[708px] font-bold text-slate-900">
+            <h1 onClick={handleDivClick} className="text-5xl font-bold text-slate-900 mb-8 mt-12">
                 {siteConfig.description}
             </h1>
 
-            <div onClick={handleDivClick}>aaa</div>
+            <div className="flex overflow-x-auto gap-4 mb-8">
+                <Image
+                    src="/a.png"
+                    alt="Tattoo Design 1"
+                    width={123}
+                    height={123}
+                    className="w-full h-auto object-cover"
+                />
+                <Image
+                    src="/b.png"
+                    alt="Tattoo Design 2"
+                    width={123}
+                    height={123}
+                    className="w-full h-auto object-cover"
+                />
+                <Image
+                    src="/c.png"
+                    alt="Tattoo Design 3"
+                    width={123}
+                    height={123}
+                    className="w-full h-auto object-cover"
+                />
+                <Image
+                    src="/d.png"
+                    alt="Tattoo Design 4"
+                    width={123}
+                    height={123}
+                    className="w-full h-auto object-cover"
+                />
+            </div>
+
+            <p className="text-lg text-gray-700 mb-8 text-center max-w-prose mx-auto">
+                If you have a tattoo idea but can't find the right design, let our AI quickly generate a range of tattoo
+                concepts for you. Customize the design to match your preferences and explore endless options.
+            </p>
+
 
             <form className="max-w-xl w-full" onSubmit={onSubmit}>
                 <div className="flex mt-10 items-center space-x-3">
@@ -150,7 +187,7 @@ export default function HomePage({
                     onChange={handleInputChange}
                     rows={4}
                     className="w-full rounded-md bg-white border border-gray-300 shadow-sm focus:border-black focus:ring-black my-5 px-2 py-1"
-                    placeholder={"e.g. Identify gender based on ID card."}
+                    placeholder={"Describe the tattoo you want"}
                 />
                 <div className="flex mb-5 items-center space-x-3">
                     <Image src="/2-black.png" width={30} height={30} alt="1 icon"/>
@@ -238,19 +275,28 @@ export default function HomePage({
                 toastOptions={{duration: 2000}}
             />
             <hr className="h-px bg-gray-700 border-1"/>
+
+
             <output className="space-y-10 my-10">
-                {image && (
-                    <>
-                        <div className="mt-10">
+                <div className="relative">
+                    {loading && (
+                        <div
+                            className="w-[600px] h-[600px] border-2 border-gray-300 bg-gray-100 flex items-center justify-center">
+                            <p className="text-gray-500">Loading...</p>
+                        </div>
+                    )}
+                    {image && !loading && (
+                        <div
+                            className="w-[600px] h-[600px] border-2 border-gray-300 bg-gray-100 flex items-center justify-center">
                             <Image
-                                src={`data:image/png;base64,${image}`} // 假设生成的图片是 PNG 格式
+                                src={`data:image/png;base64,${image}`}
                                 alt="Generated tattoo"
-                                width={600} // 根据实际图片大小调整
+                                width={600}
                                 height={600}
                             />
                         </div>
-                    </>
-                )}
+                    )}
+                </div>
             </output>
 
             {/* subscribe */}

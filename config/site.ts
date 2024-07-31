@@ -3,7 +3,7 @@ import { SiteConfig } from "@/types/siteConfig"
 const baseSiteConfig = {
   name: "tattoo generator",
   description:
-    "tattoo generator",
+    "Ai Tattoo Idea Generator",
   url: "https://smartexcel.cc",
   ogImage: "https://smartexcel.cc/og.jpg",
   metadataBase: new URL("https://www.smartexcel.cc"),

@@ -93,7 +93,7 @@ export const getUserTotalUsage = async ({ userId }: UserId) => {
 // 计算当日可用次数：查询当日已用次数，计算剩余次数，再加上加油包剩余次数
 // Calculate the available number of times for the day: Query the number of times used that day, calculate the remaining number, and then add the remaining number of boost packs
 export const getUserDateRemaining = async ({ userId, role }: RemainingParams) => {
-  const { userTodayUsage } = await getUserDateUsage({ userId })
+  const { userTotalUsage } = await getUserTotalUsage({ userId })
 
   let userRole: Role = 0
   if (role) {
@@ -111,7 +111,7 @@ export const getUserDateRemaining = async ({ userId, role }: RemainingParams) =>
 
   const userDateDefaultLimit: number = ROLES_LIMIT[userRole]
 
-  const userTodayRemaining = userDateDefaultLimit - userTodayUsage <= 0 ? 0 : userDateDefaultLimit - userTodayUsage
+  const userTodayRemaining = userDateDefaultLimit - userTotalUsage <= 0 ? 0 : userDateDefaultLimit - userTotalUsage
   const boostPackKey = await getBoostPackKey({ userId })
   const boostPackRemaining: number = await redis.get(boostPackKey) || 0
   // 查询次数是在请求openai前，自增次数是在请求后，这里把查询到的redis剩余次数返回，并传给自增方法，减少redis请求次数
@@ -132,7 +132,7 @@ export const checkStatus = async ({ userId }: UserId) => {
   });
 
   const pipeline = redis.pipeline();
-  const keyDate = getUserDateUsageKey({ userId });
+  const keyDate = getUserTotalUsageKey({ userId });
   pipeline.get(keyDate);
   const boostPackKey = getBoostPackKey({ userId });
   pipeline.get(boostPackKey);
@@ -166,6 +166,6 @@ export const checkStatus = async ({ userId }: UserId) => {
 // 升级后清空当日已用次数
 // Clear the day's used count after upgrade.
 export const clearTodayUsage = async ({ userId }: UserId) => {
-  const userDateUsageKey = getUserDateUsageKey({ userId })
-  await redis.setex(userDateUsageKey, DATE_USAGE_KEY_EXPIRE, 0)
+  const userTotalUsageKey = getUserTotalUsageKey({ userId })
+  await redis.del(userTotalUsageKey)
 }

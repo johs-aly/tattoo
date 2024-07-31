@@ -14,8 +14,8 @@ export const ROLES: { [key in Role]: string } = {
 
 // Daily usage limits for different roles.
 export const ROLES_LIMIT: { [key in Role]: number } = {
-  0: process.env.NEXT_PUBLIC_COMMON_USER_DAILY_LIMIT_STR && Number(process.env.NEXT_PUBLIC_COMMON_USER_DAILY_LIMIT_STR) || 10,
-  2: process.env.NEXT_PUBLIC_MEMBERSHIP_DAILY_LIMIT_STR && Number(process.env.NEXT_PUBLIC_MEMBERSHIP_DAILY_LIMIT_STR) || 500,
+  0: process.env.NEXT_PUBLIC_COMMON_USER_DAILY_LIMIT_STR && Number(process.env.NEXT_PUBLIC_COMMON_USER_DAILY_LIMIT_STR) || 2,
+  2: process.env.NEXT_PUBLIC_MEMBERSHIP_DAILY_LIMIT_STR && Number(process.env.NEXT_PUBLIC_MEMBERSHIP_DAILY_LIMIT_STR) || 300,
 }
 
 

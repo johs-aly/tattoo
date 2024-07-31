@@ -10,11 +10,6 @@ export async function POST(req: NextRequest) {
     const apiHost = 'https://api.stability.ai'
     const apiKey = "sk-1cwGLpS0K0SXgh3wYNAVwZJECPsOkgVphzEXNiFhTSwYg5Eb"
 
-    console.log("sdfsdfsdfdsfds")
-
-    // if (req.method !== "POST") {
-    //     return res.status(405).json({message: "Method Not Allowed"});
-    // }
 
     const {prompt} = await req.json();
     console.log(prompt)
