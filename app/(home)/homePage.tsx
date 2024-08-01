@@ -76,11 +76,11 @@ export default function  HomePage({
 
         // 判断token是否存在
         // Verify if token exists
-        // const token = user?.accessToken
-        // if (!token) {
-        //     const errorText = 'Token validation failed. Please login again.'
-        //     return new StreamingTextResponse(errorText as any);
-        // }
+        const token = user?.accessToken
+        if (!token) {
+            const errorText = 'Token validation failed. Please login again.'
+            return new StreamingTextResponse(errorText as any);
+        }
 
         // Create prompt with selected style
         const styledPrompt = `Generate a tattoo design in the ${style} style. 
@@ -93,7 +93,7 @@ export default function  HomePage({
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    // Authorization: `Bearer ${token}`, // Include token in request
+                    Authorization: `Bearer ${token}`, // Include token in request
                 },
                 body: JSON.stringify({prompt: styledPrompt}),
             });

@@ -14,22 +14,22 @@ export async function POST(req: NextRequest) {
     const {prompt} = await req.json();
     console.log(prompt)
     // // Verify user token
-    // const token = req.headers.authorization?.split(' ')[1]; // Extract from authorization header
-    // if (!token) {
-    //     return res.status(401).json({error: "Unauthorized"});
-    // }
-    //
-    // const userId: RedisUserId = await usersUtil.getUserIdByToken(token);
-    // if (!userId) {
-    //     return res.status(404).json({error: "User not found"});
-    // }
-    //
-    // // Check daily usage quota
-    // const remainingInfo = await usersUtil.getUserDateRemaining(userId)
-    // if (remainingInfo.userDateRemaining <= 0) {
-    //     const errorText = '0 credit remaining today.'
-    //     return new StreamingTextResponse(errorText as any);
-    // }
+    const token = req.headers.get('Authorization')?.split(' ')[1];  // Extract from authorization header
+    if (!token) {
+        return NextResponse.json({ error: '未授权' }, { status: 401 });
+    }
+
+    const userId: RedisUserId = await usersUtil.getUserIdByToken(token);
+    if (!userId) {
+        return NextResponse.json({ error: '用户未找到' }, { status: 404 });
+    }
+
+    // Check daily usage quota
+    const remainingInfo = await usersUtil.getUserDateRemaining(userId)
+    if (remainingInfo.userDateRemaining <= 0) {
+        const errorText = '0 credit remaining today.'
+        return new StreamingTextResponse(errorText as any);
+    }
 
     // Generate image using your preferred library (replace with your implementation)
     console.log("sdfsdfsdfdsfds")
@@ -61,7 +61,7 @@ export async function POST(req: NextRequest) {
     const imageData = data. artifacts[0].base64;
     //
     // // Update user's remaining quota after successful generation
-    // await usersUtil.incrAfterChat({userId, remainingInfo});
+    await usersUtil.incrAfterChat({userId, remainingInfo});
 
     return NextResponse.json({ modelOutputs: [{ image_base64: imageData }] }, { status: 200 });
 }
