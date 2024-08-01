@@ -124,17 +124,10 @@ export default function  HomePage({
         }
     }, [remaining, boostPackRemaining, currentUses]);
 
-    // 新的处理点击事件的函数
-    const handleDivClick = (e: MouseEvent<HTMLDivElement>) => {
-        e.preventDefault();
-        // 将 MouseEvent 转换为 FormEvent
-        onSubmit(e as unknown as FormEvent<HTMLFormElement>);
-    };
-
 
     return (
         <>
-            <h1 onClick={handleDivClick} className="text-5xl font-bold text-slate-900 mb-8 mt-12">
+            <h1 className="text-5xl font-bold text-slate-900 mb-8 mt-12">
                 {siteConfig.description}
             </h1>
 
